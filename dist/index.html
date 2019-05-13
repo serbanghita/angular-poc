@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/angular/angular.js"></script>
+    <script src="MyApp.js"></script>
+    <script src="MainController.js"></script>
+</head>
+<body ng-app="MyApp">
+    <div ng-controller="MainController">
+
+        <div style="color:red;">{{errorMsg}}</div>
+
+        <form name="searchForm" ng-submit="search(query)">
+            <input type="text" name="query" ng-model="query" required />
+            <button type="submit">Search</button>
+        </form>
+
+        <div ng-show="userData">
+            <div>
+                <img ng-src="{{userData.avatar_url}}" title="{{userData.name}}" width="128" align="left"/>
+                Login: {{userData.login}}<br />
+                Name: {{userData.name}} <br />
+                Company: {{userData.company}}<br />
+                Based in: {{userData.location}}<br />
+                Bio: <code>{{userData.bio}}</code>
+            </div>
+            <table ng-show="userRepos">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Stars</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="repo in userRepos | orderBy:'-stargazers_count'">
+                    <td>{{repo.name}}</td>
+                    <td>{{repo.stargazers_count}}</td>
+                    <td>{{repo.ssh_url}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
